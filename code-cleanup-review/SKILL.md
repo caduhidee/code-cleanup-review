@@ -1,11 +1,15 @@
 ---
 name: code-cleanup-review
-description: Review and simplify agent-written code after coding and validation, before the final response. Use for coding tasks and requested cleanup reviews to remove duplication and unnecessary complexity while preserving behavior.
+description: Use for coding tasks and requested cleanup reviews. Prevent unnecessary complexity during implementation, simplify agent-written code after validation, and teach one reusable principle from the reviewed changes.
 ---
 
 # Code Cleanup Review
 
 Perform a focused cleanup review after implementation and initial validation, before the final response. Apply across languages using the project's conventions and available tools.
+
+## During implementation
+
+When this skill is loaded before or during implementation, inspect the nearest relevant implementation before adding a helper or abstraction. Reuse existing code when its contract fits and the callers are likely to change for the same reasons. Keep behavior local when it belongs to one caller or when sharing would hide meaningful differences behind options or branches. For review-only requests, apply these criteria to the code under review.
 
 ## Establish scope
 
@@ -44,9 +48,9 @@ Use checks appropriate to the affected behavior and the project's requirements. 
 Include a concise cleanup report in the final response:
 
 - Every distinct optimization made, grouped by file or purpose, with why it helps. Group repeated instances of the same transformation without hiding distinct changes.
-- Validation performed and any remaining limitations.
+- Validation performed and any remaining limitations. For the decision used in the lesson, name the behavior you preserved and the check or inspection that supports it. State what remains unverified when coverage is incomplete.
 - Concrete suggested improvements requiring approval, when present.
-- Practical learning advice about recurring patterns only when supported by examples from the reviewed code. Describe the observed pattern without attributing agent mistakes to the user.
+- One brief lesson when the reviewed code offers a concrete design decision. Explain what made the original harder to reason about, how the chosen approach helps, and when the same technique would add complexity. Give the user a practical check they can apply themselves. Use a tiny before-and-after snippet when it clarifies the decision. End the lesson with one reusable prompt that asks an agent to apply the principle using concrete review criteria. Describe the code without attributing agent mistakes to the user. Skip the lesson when there is no concrete example.
 
 If no cleanup was needed, say so briefly. Keep the report proportional to the changes and integrate it with the task's normal final response.
 
@@ -54,6 +58,6 @@ If no cleanup was needed, say so briefly. Keep the report proportional to the ch
 
 Automatic selection is enabled, but a skill alone cannot guarantee execution after every coding task. To reinforce it, suggest this single instruction in the user's applicable agent instructions:
 
-> After coding and initial validation, use $code-cleanup-review before your final response.
+> Use $code-cleanup-review when starting a coding task. Apply its implementation guidance while coding and complete its cleanup review after initial validation, before your final response.
 
 Do not modify project or global instructions unless the user requests that configuration change.

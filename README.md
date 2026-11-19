@@ -1,10 +1,10 @@
 # Code Cleanup Review
 
-A reusable, language-independent Codex skill that reviews agent-written code for unnecessary complexity before the agent finishes a coding task.
+A reusable, language-independent skill for Codex and Claude Code that reviews agent-written code for unnecessary complexity before the agent finishes a coding task.
 
 It focuses on nested ternaries, duplicate logic and classes, unnecessary abstractions, unused code, and redundant operations. Changes preserve intended behavior and follow the project's conventions. Shared functions, interfaces, and parent classes are introduced only when they make the design simpler.
 
-## Install
+## Install in Codex
 
 Copy the entire `code-cleanup-review` folder into your personal Codex skills directory:
 
@@ -15,7 +15,7 @@ cp -R code-cleanup-review ~/.codex/skills/
 
 This makes the skill available across projects. If you already have an installed copy, review and replace it deliberately rather than nesting another copy inside it. If the skill does not appear, restart Codex.
 
-## Use
+## Use in Codex
 
 Mention the skill in a prompt:
 
@@ -27,6 +27,21 @@ Automatic selection is enabled, but a skill alone cannot guarantee execution aft
 
 ```text
 After coding and initial validation, use $code-cleanup-review before your final response.
+```
+
+## Use in Claude Code
+
+Open this repository in Claude Code and run `/code-cleanup-review`. Claude can also select the skill automatically. To use it across local projects, copy the Claude version into your personal skills directory:
+
+```sh
+mkdir -p ~/.claude/skills
+cp -R .claude/skills/code-cleanup-review ~/.claude/skills/
+```
+
+To reinforce the workflow, add this line to the project's `CLAUDE.md` or your personal `~/.claude/CLAUDE.md`:
+
+```text
+After coding and initial validation, use /code-cleanup-review before your final response.
 ```
 
 ## Scope and approval
@@ -50,5 +65,6 @@ If no cleanup is needed, the agent says so. The skill does not force refactoring
 
 - [`code-cleanup-review/SKILL.md`](code-cleanup-review/SKILL.md): review workflow, decision rules, approval boundaries, and reporting requirements.
 - [`code-cleanup-review/agents/openai.yaml`](code-cleanup-review/agents/openai.yaml): display metadata and automatic invocation policy.
+- [`.claude/skills/code-cleanup-review/SKILL.md`](.claude/skills/code-cleanup-review/SKILL.md) contains the Claude Code version.
 
 Edit the repository copy to maintain the skill, then update your personal installed copy to use those changes across projects.
